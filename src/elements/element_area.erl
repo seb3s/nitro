@@ -5,7 +5,7 @@
 
 render_element(Record) ->
     List = [
-      ?NITRO_GLOBAL_ATTRIBUTES(Record),
+      ?NITRO_GLOBAL_ATTRIBUTES,
       {<<"alt">>,Record#area.alt},
       {<<"coords">>,Record#area.coords},
       {<<"href">>,Record#area.href},
@@ -15,6 +15,6 @@ render_element(Record) ->
       {<<"shape">>, case Record#area.shape of "rect" -> "rect"; "circle" -> "circle"; "poly" -> "poly"; "default" -> "default"; _ -> undefined end},
       {<<"target">>,Record#area.target},
       {<<"type">>,Record#area.type} 
-      ?NITRO_DATA_ARIA_ATTRIBUTES(Record)
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"area">>, List).
