@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#tel.source, delegate=Record#tel.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#tel.accesskey},
-      {<<"class">>, Record#tel.class},
-      {<<"contenteditable">>, case Record#tel.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#tel.contextmenu},
-      {<<"dir">>, case Record#tel.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#tel.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#tel.dropzone},
-      {<<"hidden">>, case Record#tel.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#tel.lang},
-      {<<"spellcheck">>, case Record#tel.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#tel.style},
-      {<<"tabindex">>, Record#tel.tabindex},
-      {<<"title">>, Record#tel.title},
-      {<<"translate">>, case Record#tel.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#tel.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"autofocus">>,if Record#tel.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"disabled">>, if Record#tel.disabled == true -> "disabled"; true -> undefined end},
@@ -44,6 +28,7 @@ render_element(Record) ->
       {<<"required">>,if Record#tel.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#tel.size},
       {<<"type">>, <<"tel">>},
-      {<<"value">>, Record#tel.value} | Record#tel.data_fields
+      {<<"value">>, Record#tel.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#tel.body), List).

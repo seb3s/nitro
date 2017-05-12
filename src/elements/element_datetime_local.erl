@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#datetime_local.source, delegate=Record#datetime_local.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#datetime_local.accesskey},
-      {<<"class">>, Record#datetime_local.class},
-      {<<"contenteditable">>, case Record#datetime_local.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#datetime_local.contextmenu},
-      {<<"dir">>, case Record#datetime_local.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#datetime_local.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#datetime_local.dropzone},
-      {<<"hidden">>, case Record#datetime_local.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#datetime_local.lang},
-      {<<"spellcheck">>, case Record#datetime_local.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#datetime_local.style},
-      {<<"tabindex">>, Record#datetime_local.tabindex},
-      {<<"title">>, Record#datetime_local.title},
-      {<<"translate">>, case Record#datetime_local.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#datetime_local.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"autofocus">>,if Record#datetime_local.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"disabled">>, if Record#datetime_local.disabled == true -> "disabled"; true -> undefined end},
@@ -43,6 +27,7 @@ render_element(Record) ->
       {<<"required">>,if Record#datetime_local.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#datetime_local.step},
       {<<"type">>, <<"datetime-local">>},
-      {<<"value">>, Record#datetime_local.value} | Record#datetime_local.data_fields
+      {<<"value">>, Record#datetime_local.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#datetime_local.body), List).

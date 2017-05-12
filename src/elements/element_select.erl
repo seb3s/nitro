@@ -12,28 +12,30 @@ render_element(Record = #select{}) ->
                                 source=[nitro:to_atom(ID)],
                                 delegate=Record#select.delegate }) end,
   Props = [
-    {<<"id">>, ID},
-    {<<"class">>, Record#select.class},
-    {<<"style">>, Record#select.style},
+    ?NITRO_GLOBAL_ATTRIBUTES(ID),
     {<<"name">>, Record#select.name},
     {<<"onchange">>, Record#select.onchange},
-    {<<"title">>, Record#select.title},
     {<<"required">>, case Record#select.required of true -> <<"required">>; _-> undefined end},
     {<<"disabled">>, case Record#select.disabled of true -> <<"disabled">>; _-> undefined end},
-    {<<"multiple">>, case Record#select.multiple of true -> <<"multiple">>; _-> undefined end} | Record#select.data_fields
+    {<<"multiple">>, case Record#select.multiple of true -> <<"multiple">>; _-> undefined end}
+    ?NITRO_DATA_ARIA_ATTRIBUTES
   ],
-  wf_tags:emit_tag(<<"select">>, nitro:render(Record#select.body),
-                                  Props);
-render_element(Group = #optgroup{}) ->
-  wf_tags:emit_tag(<<"optgroup">>, nitro:render(Group#optgroup.body), [
-    {<<"disabled">>, case Group#optgroup.disabled of true-> <<"disabled">>; _-> undefined end},
-    {<<"label">>, Group#optgroup.label}
+  wf_tags:emit_tag(<<"select">>, nitro:render(Record#select.body), Props);
+
+render_element(Record = #optgroup{}) ->
+  wf_tags:emit_tag(<<"optgroup">>, nitro:render(Record#optgroup.body), [
+    ?NITRO_GLOBAL_ATTRIBUTES,
+    {<<"disabled">>, case Record#optgroup.disabled of true-> <<"disabled">>; _-> undefined end},
+    {<<"label">>, Record#optgroup.label}
+    ?NITRO_DATA_ARIA_ATTRIBUTES
   ]);
-render_element(O = #option{}) ->
-  wf_tags:emit_tag(<<"option">>, nitro:render(O#option.body), [
-    {<<"id">>, O#option.id},
-    {<<"disabled">>, case O#option.disabled of true -> <<"disabled">>; _-> undefined end},
-    {<<"label">>, O#option.label},
-    {<<"title">>, O#option.title},
-    {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> undefined end},
-    {<<"value">>, O#option.value} | O#option.data_fields]).
+
+render_element(Record = #option{}) ->
+  wf_tags:emit_tag(<<"option">>, nitro:render(Record#option.body), [
+    ?NITRO_GLOBAL_ATTRIBUTES,
+    {<<"disabled">>, case Record#option.disabled of true -> <<"disabled">>; _-> undefined end},
+    {<<"label">>, Record#option.label},
+    {<<"selected">>, case Record#option.selected of true -> <<"selected">>; _-> undefined end},
+    {<<"value">>, Record#option.value}
+    ?NITRO_DATA_ARIA_ATTRIBUTES
+  ]).

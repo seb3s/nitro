@@ -12,23 +12,7 @@ render_element(Record) ->
                             source=Record#link.source,delegate=Record#link.delegate,validation=Record#link.validate}),
             ID end,
     List = [
-      % global
-      {<<"accesskey">>, Record#link.accesskey},
-      {<<"class">>, Record#link.class},
-      {<<"contenteditable">>, case Record#link.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#link.contextmenu},
-      {<<"dir">>, case Record#link.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#link.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#link.dropzone},
-      {<<"hidden">>, case Record#link.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#link.lang},
-      {<<"spellcheck">>, case Record#link.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#link.style},
-      {<<"tabindex">>, Record#link.tabindex},
-      {<<"title">>, Record#link.title},
-      {<<"translate">>, case Record#link.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"href">>, nitro:coalesce([Record#link.href,Record#link.url])},
       {<<"hreflang">>, Record#link.hreflang},
       {<<"target">>, Record#link.target},
@@ -38,5 +22,7 @@ render_element(Record) ->
       {<<"download">>, Record#link.download},
       {<<"name">>, Record#link.name},
       {<<"onclick">>, Record#link.onclick},
-      {<<"onmouseover">>, Record#link.onmouseover} | Record#link.data_fields ],
+      {<<"onmouseover">>, Record#link.onmouseover}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
+    ],
     wf_tags:emit_tag(<<"a">>, nitro:render(Record#link.body), List).

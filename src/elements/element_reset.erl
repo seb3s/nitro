@@ -14,28 +14,13 @@ render_element(Record) ->
                   source=Record#reset.source, delegate=Record#reset.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#reset.accesskey},
-      {<<"class">>, Record#reset.class},
-      {<<"contenteditable">>, case Record#reset.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#reset.contextmenu},
-      {<<"dir">>, case Record#reset.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#reset.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#reset.dropzone},
-      {<<"hidden">>, case Record#reset.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#reset.lang},
-      {<<"spellcheck">>, case Record#reset.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#reset.style},
-      {<<"tabindex">>, Record#reset.tabindex},
-      {<<"title">>, Record#reset.title},
-      {<<"translate">>, case Record#reset.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autofocus">>,if Record#reset.autofocus == true -> "autofocus"; true -> undefined end},            
       {<<"disabled">>, if Record#reset.disabled == true -> "disabled"; true -> undefined end},
       {<<"form">>,Record#reset.form},
       {<<"name">>,Record#reset.name},
       {<<"type">>, <<"reset">>},
-      {<<"value">>, Record#reset.value} | Record#reset.data_fields
+      {<<"value">>, Record#reset.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#reset.body), List).

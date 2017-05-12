@@ -1,6 +1,6 @@
 -module(element_dtl).
 -author('Maxim Sokhatsky').
--include("nitro.hrl").
+-include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
 render_element(Record=#dtl{}) ->

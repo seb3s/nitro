@@ -5,7 +5,6 @@
 
 render_element(Record) -> 
   wf_tags:emit_tag(<<"li">>, nitro:render(Record#li.body), [
-    {<<"class">>, Record#li.class},
-    {<<"id">>, Record#li.id},
-    {<<"style">>, Record#li.style} | Record#li.data_fields
+    ?NITRO_GLOBAL_ATTRIBUTES
+    ?NITRO_DATA_ARIA_ATTRIBUTES
   ]).

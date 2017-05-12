@@ -15,9 +15,8 @@ render_element(Record) ->
          undefined -> ignore;
          ClickActions -> nitro:wire(#event { target=ID, type=click, actions=ClickActions }) end,
   wf_tags:emit_tag(<<"input">>, [
-      {<<"id">>, ID},
+      ?NITRO_GLOBAL_ATTRIBUTES(ID),
       {<<"type">>, <<"submit">>},
-      {<<"class">>, Record#submit.class},
-      {<<"style">>, Record#submit.style},
-      {<<"value">>, Record#submit.body}  | Record#submit.data_fields
+      {<<"value">>, Record#submit.body}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
   ]).

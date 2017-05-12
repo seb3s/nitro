@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#number.source, delegate=Record#number.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#number.accesskey},
-      {<<"class">>, Record#number.class},
-      {<<"contenteditable">>, case Record#number.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#number.contextmenu},
-      {<<"dir">>, case Record#number.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#number.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#number.dropzone},
-      {<<"hidden">>, case Record#number.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#number.lang},
-      {<<"spellcheck">>, case Record#number.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#number.style},
-      {<<"tabindex">>, Record#number.tabindex},
-      {<<"title">>, Record#number.title},
-      {<<"translate">>, case Record#number.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec      
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#number.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"autofocus">>,if Record#number.autofocus == true -> "autofocus"; true -> undefined end},            
       {<<"disabled">>, if Record#number.disabled == true -> "disabled"; true -> undefined end},
@@ -44,6 +28,7 @@ render_element(Record) ->
       {<<"required">>,if Record#number.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#number.step},
       {<<"type">>, <<"number">>},
-      {<<"value">>, Record#number.value} | Record#number.data_fields
+      {<<"value">>, Record#number.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#number.body), List).

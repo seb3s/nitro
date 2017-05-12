@@ -5,23 +5,7 @@
 
 render_element(Record) ->
     List = [
-      %global
-      {<<"accesskey">>, Record#area.accesskey},
-      {<<"class">>, Record#area.class},
-      {<<"contenteditable">>, case Record#area.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#area.contextmenu},
-      {<<"dir">>, case Record#area.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#area.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#area.dropzone},
-      {<<"hidden">>, case Record#area.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Record#area.id},
-      {<<"lang">>, Record#area.lang},
-      {<<"spellcheck">>, case Record#area.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#area.style},
-      {<<"tabindex">>, Record#area.tabindex},
-      {<<"title">>, Record#area.title},
-      {<<"translate">>, case Record#area.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Record),
       {<<"alt">>,Record#area.alt},
       {<<"coords">>,Record#area.coords},
       {<<"href">>,Record#area.href},
@@ -30,6 +14,7 @@ render_element(Record) ->
       {<<"rel">>,Record#area.rel},
       {<<"shape">>, case Record#area.shape of "rect" -> "rect"; "circle" -> "circle"; "poly" -> "poly"; "default" -> "default"; _ -> undefined end},
       {<<"target">>,Record#area.target},
-      {<<"type">>,Record#area.type} | Record#area.data_fields
+      {<<"type">>,Record#area.type} 
+      ?NITRO_DATA_ARIA_ATTRIBUTES(Record)
     ],
     wf_tags:emit_tag(<<"area">>, List).

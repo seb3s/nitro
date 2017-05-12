@@ -1,14 +1,13 @@
 -module(element_td).
--include("nitro.hrl").
+-include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
 render_element(Record) ->
   wf_tags:emit_tag(<<"td">>, nitro:render(Record#td.body), [
-    {<<"id">>, Record#td.id},
-    {<<"class">>, Record#td.class},
-    {<<"style">>, Record#td.style},
+    ?NITRO_GLOBAL_ATTRIBUTES,
     {<<"rowspan">>, Record#td.rowspan},
     {<<"bgcolor">>, Record#td.bgcolor},
     {<<"colspan">>, Record#td.colspan},
-    {<<"scope">>, Record#td.scope} | Record#td.data_fields
+    {<<"scope">>, Record#td.scope}
+    ?NITRO_DATA_ARIA_ATTRIBUTES
   ]).

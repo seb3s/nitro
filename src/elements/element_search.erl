@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#search.source, delegate=Record#search.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#search.accesskey},
-      {<<"class">>, Record#search.class},
-      {<<"contenteditable">>, case Record#search.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#search.contextmenu},
-      {<<"dir">>, case Record#search.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#search.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#search.dropzone},
-      {<<"hidden">>, case Record#search.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#search.lang},
-      {<<"spellcheck">>, case Record#search.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#search.style},
-      {<<"tabindex">>, Record#search.tabindex},
-      {<<"title">>, Record#search.title},
-      {<<"translate">>, case Record#search.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#search.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"autofocus">>,if Record#search.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"dirname">>,Record#search.dirname},
@@ -45,6 +29,7 @@ render_element(Record) ->
       {<<"required">>,if Record#search.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#search.size},
       {<<"type">>, <<"search">>},
-      {<<"value">>, Record#search.value} | Record#search.data_fields
+      {<<"value">>, Record#search.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#search.body), List).

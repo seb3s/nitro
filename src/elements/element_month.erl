@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#month.source, delegate=Record#month.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#month.accesskey},
-      {<<"class">>, Record#month.class},
-      {<<"contenteditable">>, case Record#month.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#month.contextmenu},
-      {<<"dir">>, case Record#month.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#month.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#month.dropzone},
-      {<<"hidden">>, case Record#month.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#month.lang},
-      {<<"spellcheck">>, case Record#month.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#month.style},
-      {<<"tabindex">>, Record#month.tabindex},
-      {<<"title">>, Record#month.title},
-      {<<"translate">>, case Record#month.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"alt">>,Record#month.alt},
       {<<"autofocus">>,if Record#month.autofocus == true -> "autofocus"; true -> undefined end},            
       {<<"disabled">>, if Record#month.disabled == true -> "disabled"; true -> undefined end},
@@ -42,6 +26,7 @@ render_element(Record) ->
       {<<"required">>,if Record#month.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#month.step},
       {<<"type">>, <<"month">>},
-      {<<"value">>, Record#month.value} | Record#month.data_fields
+      {<<"value">>, Record#month.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#month.body), List).

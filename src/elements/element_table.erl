@@ -27,7 +27,6 @@ render_element(Record = #table{}) ->
     _ -> wf_tags:emit_tag(<<"colgroup">>, nitro:render(Record#table.colgroup), [])
   end,
   wf_tags:emit_tag( <<"table">>, nitro:render([Caption, Colgroup, Header, Footer, Bodies]), [
-      {<<"id">>, Record#table.id},
-      {<<"class">>, Record#table.class},
-      {<<"style">>, Record#table.style} | Record#table.data_fields
+      ?NITRO_GLOBAL_ATTRIBUTES
+      ?NITRO_DATA_ARIA_ATTRIBUTES
   ]).

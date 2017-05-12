@@ -17,22 +17,7 @@ render_element(Record) ->
     init(Id,Record),
 
     List = [
-      %global
-      {<<"accesskey">>, Record#calendar.accesskey},
-      {<<"class">>, Record#calendar.class},
-      {<<"contenteditable">>, case Record#calendar.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#calendar.contextmenu},
-      {<<"dir">>, case Record#calendar.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#calendar.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#calendar.dropzone},
-      {<<"hidden">>, case Record#calendar.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"spellcheck">>, case Record#calendar.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#calendar.style},
-      {<<"tabindex">>, Record#calendar.tabindex},
-      {<<"title">>, Record#calendar.title},
-      {<<"translate">>, case Record#calendar.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#calendar.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"autofocus">>,if Record#calendar.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"disabled">>, if Record#calendar.disabled == true -> "disabled"; true -> undefined end},
@@ -45,7 +30,8 @@ render_element(Record) ->
       {<<"type">>, <<"calendar">>},
       {<<"pattern">>,Record#calendar.pattern},
       {<<"placeholder">>,Record#calendar.placeholder},
-      {<<"onkeypress">>, Record#calendar.onkeypress} | Record#calendar.data_fields
+      {<<"onkeypress">>, Record#calendar.onkeypress}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 

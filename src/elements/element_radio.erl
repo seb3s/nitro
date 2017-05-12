@@ -23,13 +23,11 @@ render_element(Record) ->
 
     [
         wf_tags:emit_tag(<<"input">>, Content, TypeChecked ++ [
-            {<<"id">>, ID},
+            ?NITRO_GLOBAL_ATTRIBUTES(ID),
             {<<"value">>, Record#radio.value},
             {<<"name">>, nitro:coalesce([Record#radio.html_name,Record#radio.name])},
-            {<<"class">>, Record#radio.class},
-            {<<"style">>, Record#radio.style},
             {<<"onclick">>, Record#radio.onclick},
             {<<"required">>,if Record#radio.required == true -> "required"; true -> undefined end}
+            ?NITRO_DATA_ARIA_ATTRIBUTES
         ])
-
     ].

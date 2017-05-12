@@ -5,23 +5,7 @@
 
 render_element(Record) ->
     List = [
-      %global
-      {<<"accesskey">>, Record#video.accesskey},
-      {<<"class">>, Record#video.class},
-      {<<"contenteditable">>, case Record#video.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#video.contextmenu},
-      {<<"dir">>, case Record#video.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#video.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#video.dropzone},
-      {<<"hidden">>, case Record#video.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Record#video.id},
-      {<<"lang">>, Record#video.lang},
-      {<<"spellcheck">>, case Record#video.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#video.style},
-      {<<"tabindex">>, Record#video.tabindex},
-      {<<"title">>, Record#video.title},
-      {<<"translate">>, case Record#video.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES,
       {<<"autoplay">>, case Record#video.autoplay of true -> "autoplay"; _ -> undefined end},      
       {<<"controls">>, case Record#video.controls of true -> "controls"; _ -> undefined end},      
       {<<"height">>, Record#video.height},      
@@ -31,6 +15,7 @@ render_element(Record) ->
       {<<"poster">>, Record#video.poster},      
       {<<"preload">>, case Record#video.preload of "auto" -> "auto"; "none" -> "none"; "metadata" -> "metadata"; _ -> undefined end},
       {<<"src">>, Record#video.src},     
-      {<<"width">>, Record#video.width} | Record#video.data_fields
+      {<<"width">>, Record#video.width}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"video">>, nitro:render(case Record#video.body of undefined -> []; B -> B end), List).

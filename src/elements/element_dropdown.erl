@@ -17,11 +17,9 @@ render_element(Record = #dropdown{}) ->
     ])|| O = #option{show_if=Visible} <- Record#dropdown.options, Visible == true],
 
     wf_tags:emit_tag(<<"select">>, Opts, [
-        {<<"id">>, Record#dropdown.id},
-        {<<"class">>, Record#dropdown.class},
-        {<<"style">>, Record#dropdown.style},
+        ?NITRO_GLOBAL_ATTRIBUTES(ID),
         {<<"name">>, Record#dropdown.name},
         {<<"disabled">>, case Record#dropdown.disabled of true -> <<"disabled">>; _-> undefined end},
-        {<<"multiple">>, case Record#dropdown.multiple of true -> <<"multiple">>; _-> undefined end}|
-        Record#dropdown.data_fields
+        {<<"multiple">>, case Record#dropdown.multiple of true -> <<"multiple">>; _-> undefined end}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

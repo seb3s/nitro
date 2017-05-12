@@ -27,23 +27,7 @@ render_element(Element) when is_tuple(Element) ->
 render_element(Element) -> io:format("Unknown Element: ~p~n\r",[Element]).
 
 default_render(Tag, Record) ->
-    wf_tags:emit_tag(Tag, nitro:render(element(#element.body,Record)),
-        lists:append([
-           [{<<"id">>,              element(#element.id, Record)},
-            {<<"class">>,           element(#element.class, Record)},
-            {<<"style">>,           element(#element.style, Record)},
-            {<<"title">>,           element(#element.title, Record)},
-            {<<"accesskey">>,       element(#element.accesskey, Record)},
-            {<<"contenteditable">>, element(#element.contenteditable, Record)},
-            {<<"contextmenu">>,     element(#element.contextmenu, Record)},
-            {<<"dir">>,             element(#element.dir, Record)},
-            {<<"draggable">>,       element(#element.draggable, Record)},
-            {<<"dropzone">>,        element(#element.dropzone, Record)},
-            {<<"hidden">>,          element(#element.hidden, Record)},
-            {<<"lang">>,            element(#element.lang, Record)},
-            {<<"spellcheck">>,      element(#element.spellcheck, Record)},
-            {<<"translate">>,       element(#element.translate, Record)},
-            {<<"tabindex">>,        element(#element.tabindex, Record)},
-            {<<"role">>,            element(#element.role, Record)}],
-        element(#element.data_fields, Record),
-        element(#element.aria_states, Record)])).
+    wf_tags:emit_tag(Tag, nitro:render(element(#element.body,Record)), [
+      ?NITRO_GLOBAL_ATTRIBUTES
+      ?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).

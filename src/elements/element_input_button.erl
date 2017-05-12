@@ -14,27 +14,12 @@ render_element(Record) ->
                   source=Record#input_button.source, delegate=Record#input_button.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#input_button.accesskey},
-      {<<"class">>, Record#input_button.class},
-      {<<"contenteditable">>, case Record#input_button.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#input_button.contextmenu},
-      {<<"dir">>, case Record#input_button.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#input_button.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#input_button.dropzone},
-      {<<"hidden">>, case Record#input_button.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#input_button.lang},
-      {<<"spellcheck">>, case Record#input_button.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#input_button.style},
-      {<<"tabindex">>, Record#input_button.tabindex},
-      {<<"title">>, Record#input_button.title},
-      {<<"translate">>, case Record#input_button.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autofocus">>,Record#input_button.autofocus},
       {<<"disabled">>, if Record#input_button.disabled == true -> "disabled"; true -> undefined end},
       {<<"name">>,Record#input_button.name},
       {<<"type">>, <<"button">>},
-      {<<"value">>, Record#input_button.value} | Record#input_button.data_fields
+      {<<"value">>, Record#input_button.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#input_button.body), List).

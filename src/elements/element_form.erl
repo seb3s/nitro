@@ -5,23 +5,7 @@
 
 render_element(Record) ->
     List = [
-      %global
-      {<<"accesskey">>, Record#form.accesskey},
-      {<<"class">>, Record#form.class},
-      {<<"contenteditable">>, case Record#form.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#form.contextmenu},
-      {<<"dir">>, case Record#form.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#form.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#form.dropzone},
-      {<<"hidden">>, case Record#form.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Record#form.id},
-      {<<"lang">>, Record#form.lang},
-      {<<"spellcheck">>, case Record#form.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#form.style},
-      {<<"tabindex">>, Record#form.tabindex},
-      {<<"title">>, Record#form.title},
-      {<<"translate">>, case Record#form.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES,
       {<<"accept-charset">>, Record#form.accept_charset},      
       {<<"action">>, Record#form.action},      
       {<<"autocomplete">>, case Record#form.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
@@ -29,6 +13,7 @@ render_element(Record) ->
       {<<"method">>, case Record#form.method of "post" -> "post"; _ -> "get" end},
       {<<"name">>,Record#form.name},
       {<<"novalidate">>, case Record#form.novalidate of true -> "novalidate"; _ -> undefined end},
-      {<<"target">>, Record#form.target} | Record#form.data_fields
+      {<<"target">>, Record#form.target}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"form">>, nitro:render(Record#form.body), List).

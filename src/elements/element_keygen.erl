@@ -14,28 +14,13 @@ render_element(Record) ->
                   source=Record#keygen.source, delegate=Record#keygen.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#keygen.accesskey},
-      {<<"class">>, Record#keygen.class},
-      {<<"contenteditable">>, case Record#keygen.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#keygen.contextmenu},
-      {<<"dir">>, case Record#keygen.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#keygen.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#keygen.dropzone},
-      {<<"hidden">>, case Record#keygen.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#keygen.lang},
-      {<<"spellcheck">>, case Record#keygen.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#keygen.style},
-      {<<"tabindex">>, Record#keygen.tabindex},
-      {<<"title">>, Record#keygen.title},
-      {<<"translate">>, case Record#keygen.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autofocus">>,if Record#keygen.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"challenge">>,Record#keygen.challenge},      
       {<<"disabled">>, if Record#keygen.disabled == true -> "disabled"; true -> undefined end},
       {<<"form">>,Record#keygen.form},
       {<<"keytype">>,<<"rsa">>},
-      {<<"name">>,Record#keygen.name} | Record#keygen.data_fields
+      {<<"name">>,Record#keygen.name}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"keygen">>, nitro:render(Record#keygen.body), List).

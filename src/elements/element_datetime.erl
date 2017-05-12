@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#datetime.source, delegate=Record#datetime.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#datetime.accesskey},
-      {<<"class">>, Record#datetime.class},
-      {<<"contenteditable">>, case Record#datetime.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#datetime.contextmenu},
-      {<<"dir">>, case Record#datetime.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#datetime.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#datetime.dropzone},
-      {<<"hidden">>, case Record#datetime.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#datetime.lang},
-      {<<"spellcheck">>, case Record#datetime.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#datetime.style},
-      {<<"tabindex">>, Record#datetime.tabindex},
-      {<<"title">>, Record#datetime.title},
-      {<<"translate">>, case Record#datetime.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#datetime.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"autofocus">>,if Record#datetime.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"disabled">>, if Record#datetime.disabled == true -> "disabled"; true -> undefined end},
@@ -43,6 +27,7 @@ render_element(Record) ->
       {<<"required">>,if Record#datetime.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#datetime.step},
       {<<"type">>, <<"datetime">>},
-      {<<"value">>, Record#datetime.value} | Record#datetime.data_fields
+      {<<"value">>, Record#datetime.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#datetime.body), List).

@@ -7,8 +7,6 @@ render_element(Record = #list{}) ->
   Tag = case Record#list.numbered of true -> <<"ol">>; _ -> <<"ul">> end,
 
   wf_tags:emit_tag(Tag, nitro:render(Record#list.body), [
-    {<<"id">>, Record#list.id},
-    {<<"class">>, Record#list.class},
-    {<<"style">>, Record#list.style} | Record#list.data_fields
+    ?NITRO_GLOBAL_ATTRIBUTES
+    ?NITRO_DATA_ARIA_ATTRIBUTES
   ]).
-

@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#file.source, delegate=Record#file.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#file.accesskey},
-      {<<"class">>, Record#file.class},
-      {<<"contenteditable">>, case Record#file.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#file.contextmenu},
-      {<<"dir">>, case Record#file.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#file.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#file.dropzone},
-      {<<"hidden">>, case Record#file.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#file.lang},
-      {<<"spellcheck">>, case Record#file.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#file.style},
-      {<<"tabindex">>, Record#file.tabindex},
-      {<<"title">>, Record#file.title},
-      {<<"translate">>, case Record#file.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"accept">>,Record#file.accept},
       {<<"autofocus">>,if Record#file.autofocus == true -> "autofocus"; true -> undefined end},
       {<<"disabled">>, if Record#file.disabled == true -> "disabled"; true -> undefined end},
@@ -38,6 +22,7 @@ render_element(Record) ->
       {<<"multiple">>,if Record#file.multiple == true -> "multiple"; true -> undefined end},
       {<<"name">>,Record#file.name},
       {<<"required">>,if Record#file.required == true -> "required"; true -> undefined end}, 
-      {<<"type">>, <<"file">>} | Record#file.data_fields
+      {<<"type">>, <<"file">>}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#file.body), List).

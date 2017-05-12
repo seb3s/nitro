@@ -14,23 +14,7 @@ render_element(Record) ->
                   source=Record#password.source, delegate=Record#password.delegate }),
           ID end,
     List = [
-      %global
-      {<<"accesskey">>, Record#password.accesskey},
-      {<<"class">>, Record#password.class},
-      {<<"contenteditable">>, case Record#password.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"contextmenu">>, Record#password.contextmenu},
-      {<<"dir">>, case Record#password.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#password.draggable of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"dropzone">>, Record#password.dropzone},
-      {<<"hidden">>, case Record#password.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Id},
-      {<<"lang">>, Record#password.lang},
-      {<<"spellcheck">>, case Record#password.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
-      {<<"style">>, Record#password.style},
-      {<<"tabindex">>, Record#password.tabindex},
-      {<<"title">>, Record#password.title},
-      {<<"translate">>, case Record#password.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
-      % spec 
+      ?NITRO_GLOBAL_ATTRIBUTES(Id),
       {<<"autocomplete">>, case Record#password.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},      
       {<<"autofocus">>,if Record#password.autofocus == true -> "autofocus"; true -> undefined end},            
       {<<"disabled">>, if Record#password.disabled == true -> "disabled"; true -> undefined end},
@@ -43,6 +27,7 @@ render_element(Record) ->
       {<<"required">>,if Record#password.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#password.size},
       {<<"type">>, <<"password">>},
-      {<<"value">>, Record#password.value} | Record#password.data_fields
+      {<<"value">>, Record#password.value}
+      ?NITRO_DATA_ARIA_ATTRIBUTES
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#password.body), List).
