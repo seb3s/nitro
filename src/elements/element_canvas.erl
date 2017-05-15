@@ -4,10 +4,9 @@
 -compile(export_all).
 
 render_element(Record) ->
-    List = [
-      ?NITRO_GLOBAL_ATTRIBUTES,
-      {<<"height">>,Record#canvas.height},
-      {<<"width">>,Record#canvas.width}
-      ?NITRO_DATA_ARIA_ATTRIBUTES
-    ],
-    wf_tags:emit_tag(<<"canvas">>, nitro:render(case Record#canvas.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"canvas">>, nitro:render(element(#element.body, Record)), [
+       	?NITRO_GLOBAL_ATTRIBUTES,
+       	{<<"height">>,Record#canvas.height},
+       	{<<"width">>,Record#canvas.width}
+       	?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).

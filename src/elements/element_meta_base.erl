@@ -4,10 +4,9 @@
 -compile(export_all).
 
 render_element(Record) ->
-    List = [
-      ?NITRO_GLOBAL_ATTRIBUTES,
-      {<<"href">>,Record#base.href},
-      {<<"target">>,Record#base.target}
-      ?NITRO_DATA_ARIA_ATTRIBUTES
-    ],
-    wf_tags:emit_tag(<<"base">>, List).
+    wf_tags:emit_tag(<<"base">>, [
+      	?NITRO_GLOBAL_ATTRIBUTES,
+      	{<<"href">>,Record#base.href},
+      	{<<"target">>,Record#base.target}
+      	?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).

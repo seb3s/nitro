@@ -4,10 +4,9 @@
 -compile(export_all).
 
 render_element(Record) ->
-    List = [
-      ?NITRO_GLOBAL_ATTRIBUTES,
-      {<<"max">>,Record#progress.max},
-      {<<"value">>,Record#progress.value}
-      ?NITRO_DATA_ARIA_ATTRIBUTES
-    ],
-    wf_tags:emit_tag(<<"progress">>, nitro:render(case Record#progress.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"progress">>, nitro:render(element(#element.body, Record)), [
+      	?NITRO_GLOBAL_ATTRIBUTES,
+      	{<<"max">>,Record#progress.max},
+      	{<<"value">>,Record#progress.value}
+      	?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).

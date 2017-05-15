@@ -4,9 +4,8 @@
 -compile(export_all).
 
 render_element(Record) ->
-    List = [
-      ?NITRO_GLOBAL_ATTRIBUTES,
-      {<<"datetime">>,Record#time.datetime}
-      ?NITRO_DATA_ARIA_ATTRIBUTES
-    ],
-    wf_tags:emit_tag(<<"time">>, nitro:render(Record#time.body), List).
+    wf_tags:emit_tag(<<"time">>, nitro:render(element(#element.body, Record)), [
+      	?NITRO_GLOBAL_ATTRIBUTES,
+      	{<<"datetime">>,Record#time.datetime}
+      	?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).

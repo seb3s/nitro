@@ -109,3 +109,14 @@ html_encode_whites([H|T]) ->
 
 script() -> get(script).
 script(Script) -> put(script,Script).
+
+wire_postback(Record) -> wire_postback(Record, click).
+wire_postback(Record, Type) ->
+    case element(#element.postback, Record) of
+        undefined -> element(#element.id, Record);
+        Postback ->
+            Id = case element(#element.id, Record) of undefined -> nitro:temp_id(); I -> I end,
+            nitro:wire(#event{type=Type, postback=Postback, target=Id,
+                source=element(#element.source, Record), delegate=element(#element.delegate, Record) }),
+            Id
+    end.

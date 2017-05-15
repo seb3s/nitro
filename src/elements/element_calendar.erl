@@ -4,36 +4,25 @@
 -export([render_element/1]).
 
 render_element(Record) ->
-    Id = case Record#calendar.postback of
-        undefined -> Record#calendar.id;
-        Postback ->
-          ID = case Record#calendar.id of
-            undefined -> nitro:temp_id();
-            I -> I end,
-          nitro:wire(#event{type=click, postback=Postback, target=ID,
-                  source=Record#calendar.source, delegate=Record#calendar.delegate }),
-          ID end,
-
+    Id = nitro:wire_postback(Record),
     init(Id,Record),
-
-    List = [
-      ?NITRO_GLOBAL_ATTRIBUTES(Id),
-      {<<"autocomplete">>, case Record#calendar.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
-      {<<"autofocus">>,if Record#calendar.autofocus == true -> "autofocus"; true -> undefined end},
-      {<<"disabled">>, if Record#calendar.disabled == true -> "disabled"; true -> undefined end},
-      {<<"form">>,Record#calendar.form},
-      {<<"list">>,Record#calendar.list},
-      {<<"name">>,Record#calendar.name},
-      {<<"readonly">>,if Record#calendar.readonly == true -> "readonly"; true -> undefined end},
-      {<<"required">>,if Record#calendar.required == true -> "required"; true -> undefined end},
-      {<<"step">>,Record#calendar.step},
-      {<<"type">>, <<"calendar">>},
-      {<<"pattern">>,Record#calendar.pattern},
-      {<<"placeholder">>,Record#calendar.placeholder},
-      {<<"onkeypress">>, Record#calendar.onkeypress}
-      ?NITRO_DATA_ARIA_ATTRIBUTES
-    ],
-    wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
+    wf_tags:emit_tag(<<"input">>, nitro:render(element(#element.body, Record)), [
+        ?NITRO_GLOBAL_ATTRIBUTES(Id),
+        {<<"autocomplete">>, case Record#calendar.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
+        {<<"autofocus">>,if Record#calendar.autofocus == true -> "autofocus"; true -> undefined end},
+        {<<"disabled">>, if Record#calendar.disabled == true -> "disabled"; true -> undefined end},
+        {<<"form">>,Record#calendar.form},
+        {<<"list">>,Record#calendar.list},
+        {<<"name">>,Record#calendar.name},
+        {<<"readonly">>,if Record#calendar.readonly == true -> "readonly"; true -> undefined end},
+        {<<"required">>,if Record#calendar.required == true -> "required"; true -> undefined end},
+        {<<"step">>,Record#calendar.step},
+        {<<"type">>, <<"calendar">>},
+        {<<"pattern">>,Record#calendar.pattern},
+        {<<"placeholder">>,Record#calendar.placeholder},
+        {<<"onkeypress">>, Record#calendar.onkeypress}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).
 
 init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSelect=SelectFn,disableDayFn=DisDayFn, position=Pos,reposition=Repos,yearRange=YearRange}) ->
     ID = nitro:to_list(Id),

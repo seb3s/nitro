@@ -4,10 +4,9 @@
 -compile(export_all).
 
 render_element(Record) ->
-    List = [
-      ?NITRO_GLOBAL_ATTRIBUTES,
-      {<<"cite">>, Record#ins.cite},
-      {<<"datetime">>, Record#ins.datetime}
-      ?NITRO_DATA_ARIA_ATTRIBUTES
-    ],
-    wf_tags:emit_tag(<<"ins">>, nitro:render(case Record#ins.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"ins">>, nitro:render(element(#element.body, Record)), [
+      	?NITRO_GLOBAL_ATTRIBUTES,
+      	{<<"cite">>, Record#ins.cite},
+      	{<<"datetime">>, Record#ins.datetime}
+      	?NITRO_DATA_ARIA_ATTRIBUTES
+    ]).
