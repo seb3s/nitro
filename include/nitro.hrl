@@ -42,7 +42,6 @@
 -record(list,           {?ELEMENT_BASE(element_list), numbered=false }).
 -record(dropdown,       {?ELEMENT_BASE(element_dropdown), options, value, multiple=false, disabled=false, name}).
 -record(radiogroup,     {?ELEMENT_BASE(element_radiogroup)}).
--record(spinner,        {?ELEMENT_BASE(element_spinner), image="/priv/static/spinner.gif"}).
 
 % HTML Document meta
 -record(base,           {?ELEMENT_BASE(element_meta_base), href, target}).
