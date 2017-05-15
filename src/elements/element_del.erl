@@ -5,8 +5,8 @@
 
 render_element(Record) ->
     wf_tags:emit_tag(<<"del">>, nitro:render(element(#element.body, Record)), [
-      	?NITRO_GLOBAL_ATTRIBUTES,
-      	{<<"cite">>, Record#del.cite},
-      	{<<"datetime">>, Record#del.datetime}
-      	?NITRO_DATA_ARIA_ATTRIBUTES
+        ?NITRO_GLOBAL_ATTRIBUTES,
+        {<<"cite">>, Record#del.cite},
+        {<<"datetime">>, Record#del.datetime}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

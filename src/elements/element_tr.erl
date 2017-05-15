@@ -10,7 +10,7 @@ render_element(Record = #tr{postback= Postback}) ->
             "cursor:pointer;"
     end,
     wf_tags:emit_tag(<<"tr">>, nitro:render(Record#tr.cells), [
-     	{<<"id">>,              Id},
+        {<<"id">>,              Id},
         {<<"class">>,           element(#element.class, Record)},
         {<<"style">>,           [element(#element.style, Record), Cursor]}, %% CAUTION
         {<<"title">>,           element(#element.title, Record)},

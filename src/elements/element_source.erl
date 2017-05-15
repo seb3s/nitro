@@ -5,9 +5,9 @@
 
 render_element(Record) ->
     wf_tags:emit_tag(<<"source">>, [
-      	?NITRO_GLOBAL_ATTRIBUTES,
-      	{<<"media">>,Record#source.media},
-      	{<<"type">>,Record#source.type},
-      	{<<"src">>,Record#source.src}
-      	?NITRO_DATA_ARIA_ATTRIBUTES
+        ?NITRO_GLOBAL_ATTRIBUTES,
+        {<<"media">>,Record#source.media},
+        {<<"type">>,Record#source.type},
+        {<<"src">>,Record#source.src}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

@@ -78,34 +78,34 @@ html_encode(L, whites) -> html_encode_whites(nitro:to_list(lists:flatten([L]))).
 html_encode(<<>>) -> [];
 html_encode([]) -> [];
 html_encode([H|T]) ->
-	case H of
-		$< -> "&lt;" ++ html_encode(T);
-		$> -> "&gt;" ++ html_encode(T);
-		$" -> "&quot;" ++ html_encode(T);
-		$' -> "&#39;" ++ html_encode(T);
-		$& -> "&amp;" ++ html_encode(T);
-		BigNum when is_integer(BigNum) andalso BigNum > 255 ->
-			%% Any integers above 255 are converted to their HTML encode equivilant,
-			%% Example: 7534 gets turned into &#7534;
-			[$&,$# | nitro:to_list(BigNum)] ++ ";" ++ html_encode(T);
-		Tup when is_tuple(Tup) ->
-			throw({html_encode,encountered_tuple,Tup});
-		_ -> [H|html_encode(T)]
-	end.
+    case H of
+        $< -> "&lt;" ++ html_encode(T);
+        $> -> "&gt;" ++ html_encode(T);
+        $" -> "&quot;" ++ html_encode(T);
+        $' -> "&#39;" ++ html_encode(T);
+        $& -> "&amp;" ++ html_encode(T);
+        BigNum when is_integer(BigNum) andalso BigNum > 255 ->
+            %% Any integers above 255 are converted to their HTML encode equivilant,
+            %% Example: 7534 gets turned into &#7534;
+            [$&,$# | nitro:to_list(BigNum)] ++ ";" ++ html_encode(T);
+        Tup when is_tuple(Tup) ->
+            throw({html_encode,encountered_tuple,Tup});
+        _ -> [H|html_encode(T)]
+    end.
 
 html_encode_whites([]) -> [];
 html_encode_whites([H|T]) ->
-	case H of
-		$\s -> "&nbsp;" ++ html_encode_whites(T);
-		$\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode_whites(T);
-		$< -> "&lt;" ++ html_encode_whites(T);
-		$> -> "&gt;" ++ html_encode_whites(T);
-		$" -> "&quot;" ++ html_encode_whites(T);
-		$' -> "&#39;" ++ html_encode_whites(T);
-		$& -> "&amp;" ++ html_encode_whites(T);
-		$\n -> "<br>" ++ html_encode_whites(T);
-		_ -> [H|html_encode_whites(T)]
-	end.
+    case H of
+        $\s -> "&nbsp;" ++ html_encode_whites(T);
+        $\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode_whites(T);
+        $< -> "&lt;" ++ html_encode_whites(T);
+        $> -> "&gt;" ++ html_encode_whites(T);
+        $" -> "&quot;" ++ html_encode_whites(T);
+        $' -> "&#39;" ++ html_encode_whites(T);
+        $& -> "&amp;" ++ html_encode_whites(T);
+        $\n -> "<br>" ++ html_encode_whites(T);
+        _ -> [H|html_encode_whites(T)]
+    end.
 
 script() -> get(script).
 script(Script) -> put(script,Script).

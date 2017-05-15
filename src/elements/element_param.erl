@@ -5,8 +5,8 @@
 
 render_element(Record) ->
     wf_tags:emit_tag(<<"param">>, [
-      	?NITRO_GLOBAL_ATTRIBUTES,
-      	{<<"name">>,Record#param.name},
-      	{<<"value">>,Record#param.value}
-      	?NITRO_DATA_ARIA_ATTRIBUTES
+        ?NITRO_GLOBAL_ATTRIBUTES,
+        {<<"name">>,Record#param.name},
+        {<<"value">>,Record#param.value}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

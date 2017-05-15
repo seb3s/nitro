@@ -5,7 +5,7 @@
 
 render_element(Record) ->
     wf_tags:emit_tag(<<"html">>, nitro:render(element(#element.body, Record)), [
-      	?NITRO_GLOBAL_ATTRIBUTES,
-      	{<<"manifest">>, Record#html.manifest}
-      	?NITRO_DATA_ARIA_ATTRIBUTES
+        ?NITRO_GLOBAL_ATTRIBUTES,
+        {<<"manifest">>, Record#html.manifest}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

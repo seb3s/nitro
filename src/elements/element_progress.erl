@@ -5,8 +5,8 @@
 
 render_element(Record) ->
     wf_tags:emit_tag(<<"progress">>, nitro:render(element(#element.body, Record)), [
-      	?NITRO_GLOBAL_ATTRIBUTES,
-      	{<<"max">>,Record#progress.max},
-      	{<<"value">>,Record#progress.value}
-      	?NITRO_DATA_ARIA_ATTRIBUTES
+        ?NITRO_GLOBAL_ATTRIBUTES,
+        {<<"max">>,Record#progress.max},
+        {<<"value">>,Record#progress.value}
+        ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).
