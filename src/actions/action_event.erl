@@ -13,9 +13,12 @@ render_action(#event{postback=Postback,actions=_A,source=Source,target=Control,t
     PostbackBin = wf_event:new(Postback, E, D, event, data(E,Source), ValidationSource, V),
     ["{var x=qi('",E,"'); x && x.addEventListener('",?B(Type),"',function (event){ ",PostbackBin,"});};"].
 
-data(E,SourceList) ->
-    Type=fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ]; (A) -> [ "utf8_toByteArray('",A,"')" ] end,
-    list_to_binary(["[tuple(tuple(utf8_toByteArray('",E,"'),bin('detail')),[])",
-        [ case S of {Id,Code} -> [ ",tuple(",Type(Id),",",Code,")" ];
-                            _ -> [ ",tuple(",Type(S),",querySource('",?B(S),"'))" ]
-          end || S <- SourceList ],"]"]).
+data(E, []) -> ["[]"];
+data(E, [HSource | TSource]) ->
+    FType = fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ]; (A) -> [ "utf8_toByteArray('",A,"')" ] end,
+    FTuple = fun(S) ->
+    	case S of {Id,Code} -> [ "tuple(",FType(Id),",",Code,")" ];
+                          _ -> [ "tuple(",FType(S),",querySource('",?B(S),"'))" ]
+        end
+   	end,
+    list_to_binary(["[", FTuple(HSource) , [[",", FTuple(S)] || S <- TSource], "]"]).
