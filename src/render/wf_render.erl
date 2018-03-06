@@ -2,8 +2,8 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_item(E) when element(2,E) == element -> wf_render_elements:render_element(E);
-render_item(E) when element(2,E) == action  -> wf_render_actions:render_action(E);
+render_item(E) when element(#element.ancestor, E) == element -> wf_render_elements:render_element(E);
+render_item(E) when element(#element.ancestor, E) == action  -> wf_render_actions:render_action(E);
 render_item(E) -> E.
 render(<<E/binary>>) -> E;
 render(undefined) -> [];
