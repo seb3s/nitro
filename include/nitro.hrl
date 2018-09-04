@@ -175,7 +175,7 @@
 -record(tr,             {?ELEMENT_BASE(element_tr), cells}).
 
 % HTML Text-level semantics
--record(link,           {?ELEMENT_BASE(element_link), href, hreflang, media, rel, target, type, url="javascript:void(0);", download, name}).
+-record(link,           {?ELEMENT_BASE(element_link), href, hreflang, media, rel, target, type, url, download, name}).
 -record(abbr,           ?DEFAULT_BASE).
 -record(b,              ?DEFAULT_BASE).
 -record(bdi,            ?DEFAULT_BASE).
