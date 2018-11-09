@@ -15,7 +15,9 @@ render_action(#event{postback=Postback,actions=_A,source=Source,target=Control,t
 
 data(E, []) -> <<"[]">>;
 data(E, [HSource | TSource]) ->
-    FType = fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ]; (A) -> [ "utf8_toByteArray('",A,"')" ] end,
+    FType = fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ];
+               (A) when is_binary(A) -> [ "bin('",A,"')" ];
+               (A) -> [ "utf8_toByteArray('",A,"')" ] end,
     FTuple = fun(S) ->
         case S of {Id,Code} -> [ "tuple(",FType(Id),",",Code,")" ];
                           _ -> [ "tuple(",FType(S),",querySource('",?B(S),"'))" ]
