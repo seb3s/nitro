@@ -7,7 +7,7 @@ render_element(Record) ->
     wf_tags:emit_tag(<<"input">>, nitro:render(element(#element.body, Record)), [
         ?NITRO_GLOBAL_ATTRIBUTES(Id),
         {<<"autofocus">>,Record#input.autofocus},
-        {<<"disabled">>, if Record#input.disabled == true -> "disabled"; true -> undefined end},
+        {<<"disabled">>, if Record#input.disabled == true -> <<"disabled">>; true -> undefined end},
         {<<"name">>,Record#input.name},
         {<<"type">>, Record#input.type},
         {<<"accept">>, Record#input.accept},

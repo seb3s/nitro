@@ -12,8 +12,13 @@ render_element(Record) ->
         {<<"hreflang">>,Record#area.hreflang},
         {<<"media">>,Record#area.media},
         {<<"rel">>,Record#area.rel},
-        {<<"shape">>, case Record#area.shape of "rect" -> "rect"; "circle" -> "circle"; "poly" -> "poly"; "default" -> "default"; _ -> undefined end},
+        {<<"shape">>, case nitro:to_binary(Record#area.shape) of
+            <<"rect">> -> <<"rect">>;
+            <<"circle">> -> <<"circle">>;
+            <<"poly">> -> <<"poly">>;
+            <<"default">> -> <<"default">>;
+            _ -> undefined end},
         {<<"target">>,Record#area.target},
-        {<<"type">>,Record#area.type} 
+        {<<"type">>,Record#area.type}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

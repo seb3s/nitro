@@ -19,6 +19,6 @@ render_element(Record) ->
         {<<"value">>, Record#radio.value},
         {<<"name">>, nitro:coalesce([Record#radio.html_name,Record#radio.name])},
         {<<"onclick">>, Record#radio.onclick},
-        {<<"required">>,if Record#radio.required == true -> "required"; true -> undefined end}
+        {<<"required">>,if Record#radio.required == true -> <<"required">>; true -> undefined end}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

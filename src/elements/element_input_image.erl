@@ -8,8 +8,8 @@ render_element(Record) ->
     wf_tags:emit_tag(<<"input">>, nitro:render(element(#element.body, Record)), [
         ?NITRO_GLOBAL_ATTRIBUTES(Id),
         {<<"alt">>,Record#input_image.alt},
-        {<<"autofocus">>,if Record#input_image.autofocus == true -> "autofocus"; true -> undefined end},      
-        {<<"disabled">>, if Record#input_image.disabled == true -> "disabled"; true -> undefined end},
+        {<<"autofocus">>,if Record#input_image.autofocus == true -> <<"autofocus">>; true -> undefined end},
+        {<<"disabled">>, if Record#input_image.disabled == true -> <<"disabled">>; true -> undefined end},
         {<<"form">>,Record#input_image.form},
         {<<"formaction">>,Record#input_image.formaction},
         {<<"formenctype">>,Record#input_image.formenctype},

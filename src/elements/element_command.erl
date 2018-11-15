@@ -6,10 +6,14 @@
 render_element(Record) ->
     wf_tags:emit_tag(<<"command">>, [
         ?NITRO_GLOBAL_ATTRIBUTES,
-        {<<"disabled">>, if Record#command.disabled == true -> "disabled"; true -> undefined end},
+        {<<"disabled">>, if Record#command.disabled == true -> <<"disabled">>; true -> undefined end},
         {<<"icon">>, Record#command.icon},
         {<<"label">>, Record#command.label},
         {<<"radiogroup">>, Record#command.radiogroup},
-        {<<"type">>, case Record#command.type of "command" -> "command"; "radio" -> "radio"; "checkbox" -> "checkbox"; _ -> undefined end}
+        {<<"type">>, case nitro:to_binary(Record#command.type) of
+            <<"command">> -> <<"command">>;
+            <<"radio">> -> <<"radio">>;
+            <<"checkbox">> -> <<"checkbox">>;
+            _ -> undefined end}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

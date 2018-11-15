@@ -10,12 +10,12 @@ render_element(#upload{id=Id} = U) ->
     bind(ftp_stop,  click,  "ftp.stop(ftp_file);"),
     bind(nitro:to_atom(Uid), change, "ftp_file=ftp.init(this.files[0]);"),
     Upload = #panel  { body = [
-             #input  { id   = Uid,         type    = <<"file">>, style = "display:none" },
+             #input  { id   = Uid,         type    = <<"file">>, style = <<"display:none">> },
              #span   { id   = ftp_status,  body    = [] },
              #span   { body = [
-             #button { id   = ftp_open,    body = "Browse" },
-             #button { id   = ftp_start,   body = "Upload" },
-             #button { id   = ftp_stop,    body = "Stop" }
+             #button { id   = ftp_open,    body = <<"Browse">> },
+             #button { id   = ftp_start,   body = <<"Upload">> },
+             #button { id   = ftp_stop,    body = <<"Stop">> }
     ] } ] }, wf:render(Upload).
 
 bind(Control,Event,Code) ->

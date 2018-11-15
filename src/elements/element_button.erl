@@ -11,7 +11,7 @@ render_element(Record) ->
         {<<"name">>, Record#button.name},
         {<<"onchange">>, Record#button.onchange},
         {<<"onclick">>, Record#button.onclick},
-        {<<"disabled">>, if Record#button.disabled == true -> "disabled"; true -> undefined end},
+        {<<"disabled">>, if Record#button.disabled == true -> <<"disabled">>; true -> undefined end},
         {<<"value">>, Record#button.value}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).
