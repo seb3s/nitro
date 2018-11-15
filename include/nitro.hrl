@@ -20,16 +20,25 @@
     {<<"style">>,           element(#element.style, Record)},
     {<<"title">>,           element(#element.title, Record)},
     {<<"accesskey">>,       element(#element.accesskey, Record)},
-    {<<"contenteditable">>, case element(#element.contenteditable, Record) of true -> "true"; false -> "false"; _ -> undefined end},
+    {<<"contenteditable">>, case element(#element.contenteditable, Record) of
+        true -> <<"true">>; false -> <<"false">>; _ -> undefined end},
     {<<"contextmenu">>,     element(#element.contextmenu, Record)},
-    {<<"dir">>,             case element(#element.dir, Record) of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-    {<<"draggable">>,       case element(#element.draggable, Record) of true -> "true"; false -> "false"; _ -> undefined end},
+    {<<"dir">>,             case element(#element.dir, Record) of
+        Val when Val =:= <<"ltr">>;  Val =:= "ltr"  -> <<"ltr">>;
+        Val when Val =:= <<"rtl">>;  Val =:= "rtl"  -> <<"rtl">>;
+        Val when Val =:= <<"auto">>; Val =:= "auto" -> <<"auto">>; _ -> undefined end},
+    {<<"draggable">>,       case element(#element.draggable, Record) of
+        true -> <<"true">>; false -> <<"false">>; _ -> undefined end},
     {<<"dropzone">>,        element(#element.dropzone, Record)},
-    {<<"hidden">>,          case element(#element.hidden, Record) of "hidden" -> "hidden"; _ -> undefined end},
+    {<<"hidden">>,          case element(#element.hidden, Record) of
+        Val when Val =:= true; Val =:= <<"hidden">>; Val =:= "hidden" -> <<"hidden">>; _ -> undefined end},
     {<<"lang">>,            element(#element.lang, Record)},
-    {<<"spellcheck">>,      case element(#element.spellcheck, Record) of true -> "true"; false -> "false"; _ -> undefined end},
+    {<<"spellcheck">>,      case element(#element.spellcheck, Record) of
+        true -> <<"true">>; false -> <<"false">>; _ -> undefined end},
     {<<"tabindex">>,        element(#element.tabindex, Record)},
-    {<<"translate">>,       case element(#element.translate, Record) of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},
+    {<<"translate">>,       case element(#element.translate, Record) of
+        Val when Val =:= <<"yes">>; Val =:= "yes" -> <<"yes">>;
+        Val when Val =:= <<"no">>;  Val =:= "no" -> <<"no">>; _ -> undefined end},
     {<<"role">>,            element(#element.role, Record)}).
 
 -define(NITRO_DATA_ARIA_ATTRIBUTES,
