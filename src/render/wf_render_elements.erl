@@ -26,7 +26,8 @@ render_element(Element) when is_tuple(Element) ->
 render_element(Element) -> io:format("Unknown Element: ~p~n\r",[Element]).
 
 default_render(Tag, Record) ->
+    Id = nitro:wire_postback(Record),
     wf_tags:emit_tag(Tag, nitro:render(element(#element.body, Record)), [
-        ?NITRO_GLOBAL_ATTRIBUTES
+        ?NITRO_GLOBAL_ATTRIBUTES(Id)
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).
