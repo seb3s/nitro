@@ -25,4 +25,4 @@ display_property({Prop, Value}) -> [<<" ">>, nitro:to_binary(Prop), <<"=\"">>, n
 
 prop({Prop, Value}) when is_atom(Value) ->   [<<" ">>, Prop, <<"=\"">>, nitro:to_binary(Value), <<"\"">>];
 prop({Prop, Value}) when is_binary(Value) -> [<<" ">>, Prop, <<"=\"">>, Value, <<"\"">>];
-prop({Prop, Value}) -> [<<" ">>, Prop, <<"=\"">>, string:join([nitro:to_list(V) || V <- Value], " "), <<"\"">>].
+prop({Prop, Value}) -> [<<" ">>, Prop, <<"=\"">>, lists:join(<<" ">>, [nitro:to_binary(V) || V <- Value]), <<"\"">>].
