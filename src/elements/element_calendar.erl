@@ -19,8 +19,7 @@ render_element(Record) ->
         {<<"step">>,Record#calendar.step},
         {<<"type">>, <<"calendar">>},
         {<<"pattern">>,Record#calendar.pattern},
-        {<<"placeholder">>,Record#calendar.placeholder},
-        {<<"onkeypress">>, Record#calendar.onkeypress}
+        {<<"placeholder">>,Record#calendar.placeholder}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).
 

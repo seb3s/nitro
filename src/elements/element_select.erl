@@ -13,7 +13,6 @@ render_element(Record = #select{}) ->
     wf_tags:emit_tag(<<"select">>, nitro:render(element(#element.body, Record)), [
         ?NITRO_GLOBAL_ATTRIBUTES(Id),
         {<<"name">>, Record#select.name},
-        {<<"onchange">>, Record#select.onchange},
         {<<"required">>, case Record#select.required of true -> <<"required">>; _-> undefined end},
         {<<"disabled">>, case Record#select.disabled of true -> <<"disabled">>; _-> undefined end},
         {<<"multiple">>, case Record#select.multiple of true -> <<"multiple">>; _-> undefined end}

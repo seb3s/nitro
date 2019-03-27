@@ -9,7 +9,9 @@
     actions, class=[], style=[], source=[], onmouseover, onkeypress, onchange, onkeyup, onkeydown, onclick,
     data_fields=[], aria_states=[], body, role, tabindex, show_if=true, html_tag=Tag,
     title, postback, accesskey, contenteditable, contextmenu, dir, draggable, dropzone,
-    hidden, lang, spellcheck, translate, onblur, onerror, onfocus, onmessage, onresize).
+    hidden, lang, spellcheck, translate,
+    %% actually not used by nitro but keep it coz could be used by other libs such as svg
+    onblur, onerror, onfocus, onmessage, onresize).
 -define(ACTION_BASE(Module), ancestor=action, trigger, target, module=Module, actions, source=[]).
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
 
@@ -39,7 +41,13 @@
     {<<"translate">>,       case element(#element.translate, Record) of
         Val when Val =:= <<"yes">>; Val =:= "yes" -> <<"yes">>;
         Val when Val =:= <<"no">>;  Val =:= "no" -> <<"no">>; _ -> undefined end},
-    {<<"role">>,            element(#element.role, Record)}).
+    {<<"role">>,            element(#element.role, Record)},
+    {<<"onmouseover">>,     element(#element.onmouseover, Record)},
+    {<<"onkeypress">>,      element(#element.onkeypress, Record)},
+    {<<"onchange">>,        element(#element.onchange, Record)},
+    {<<"onkeyup">>,         element(#element.onkeyup, Record)},
+    {<<"onkeydown">>,       element(#element.onkeydown, Record)},
+    {<<"onclick">>,         element(#element.onclick, Record)}).
 
 -define(NITRO_DATA_ARIA_ATTRIBUTES,
     | lists:append(
@@ -47,7 +55,7 @@
     element(#element.aria_states, Record))).
 
 
--record(element,        {?ELEMENT_BASE(undefined)}).
+-record(element,        ?DEFAULT_BASE).
 -record(literal,        {?ELEMENT_BASE(element_literal), html_encode=true }).
 -record(dtl,            {?ELEMENT_BASE(element_dtl), file="index", bindings=[], app=web, folder="priv/templates", ext="html", bind_script=true, js_escape=false }).
 -record(list,           {?ELEMENT_BASE(element_list), numbered=false }).

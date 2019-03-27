@@ -3,7 +3,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_element(Record) -> 
+render_element(Record) ->
     case element(#element.postback, Record) of
         undefined -> Id = element(#element.id, Record);
         Postback ->
@@ -21,8 +21,6 @@ render_element(Record) ->
         {<<"rel">>, Record#link.rel},
         {<<"type">>, Record#link.type},
         {<<"download">>, Record#link.download},
-        {<<"name">>, Record#link.name},
-        {<<"onclick">>, Record#link.onclick},
-        {<<"onmouseover">>, Record#link.onmouseover}
+        {<<"name">>, Record#link.name}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

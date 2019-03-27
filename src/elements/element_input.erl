@@ -16,11 +16,6 @@ render_element(Record) ->
         {<<"min">>, Record#input.min},
         {<<"multiple">>, Record#input.multiple},
         {<<"pattern">>, Record#input.pattern},
-        {<<"value">>, Record#input.value},
-        {<<"onkeypress">>, Record#input.onkeypress},
-        {<<"onkeyup">>, Record#input.onkeyup},
-        {<<"onkeydown">>, Record#input.onkeydown},
-        {<<"onclick">>, Record#input.onclick},
-        {<<"onchange">>, Record#input.onchange}
+        {<<"value">>, Record#input.value}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).

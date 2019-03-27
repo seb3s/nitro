@@ -18,7 +18,6 @@ render_element(Record) ->
         ?NITRO_GLOBAL_ATTRIBUTES(Id),
         {<<"value">>, Record#radio.value},
         {<<"name">>, nitro:coalesce([Record#radio.html_name,Record#radio.name])},
-        {<<"onclick">>, Record#radio.onclick},
         {<<"required">>,if Record#radio.required == true -> <<"required">>; true -> undefined end}
         ?NITRO_DATA_ARIA_ATTRIBUTES
     ]).
