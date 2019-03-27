@@ -16,9 +16,9 @@ emit_tag(TagName, [undefined], Props) -> emit_tag(TagName, [], Props);
 emit_tag(TagName, [], Props) when ?VOID(TagName) -> emit_tag(TagName, Props);
 emit_tag(TagName, [], Props) -> [<<"<">>, TagName, write_props(Props), <<">">>, <<"</">>, TagName, <<">">>];
 emit_tag(TagName, Content, Props) -> [<<"<">>, TagName, write_props(Props), <<">">>, Content, <<"</">>, TagName, <<">">>].
-write_props(Props) -> [display_property(Prop) || Prop <- Props].
-display_property({_, undefined}) -> [];
-display_property({_, []}) -> [];
+
+write_props(Props) -> [display_property(Prop) || {_, Val} = Prop <- Props, Val =/= undefined, Val =/= []].
+
 display_property({Prop, Value}) when Prop =:= <<"class">>; Prop =:= <<"data-toggle">> -> prop({Prop, Value});
 display_property({Prop, Value}) when is_binary(Value), is_binary(Prop) -> [<<" ">>, Prop, <<"=\"">>, Value, <<"\"">>];
 display_property({Prop, Value}) -> [<<" ">>, nitro:to_binary(Prop), <<"=\"">>, nitro:to_binary(Value), <<"\"">>].
